@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static tailwind_tags %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub User Search</title>
+    {% tailwind_css %}
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl bg-gray-800 p-6 rounded-2xl shadow-xl">
+
+        <!-- Welcome Section -->
+        <div class="text-center mb-6 animate-fade-in">
+            <h1 class="text-4xl font-bold text-blue-400 animate-bounce">Welcome to GitHub User Search</h1>
+            <p class="text-gray-300 mt-2">Find GitHub users, check their followers, repositories, and more!</p>
+        </div>
+
+        <h1 class="text-3xl font-bold text-center text-blue-400 animate-pulse">GitHub User Search</h1>
+
+        <!-- Search Form -->
+        <form method="POST" class="mt-4 flex gap-2">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Enter GitHub Username" required
+                class="w-full p-3 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit"
+                class="bg-blue-500 hover:bg-blue-600 px-5 py-3 rounded-lg font-semibold transition-transform transform hover:scale-105">
+                Search
+            </button>
+        </form>
+
+        <!-- Error Message -->
+        {% if error_message %}
+        <p class="text-red-500 text-center mt-3">{{ error_message }}</p>
+        {% endif %}
+
+        <!-- User Info -->
+        {% if user_data %}
+        <div class="mt-6 bg-gray-700 p-5 rounded-xl shadow-md animate-fade-in">
+            <div class="flex items-center gap-4">
+                <img src="{{ user_data.avatar_url }}" alt="Profile Picture"
+                    class="w-16 h-16 rounded-full border-2 border-blue-400 shadow-lg">
+                <div>
+                    <h2 class="text-2xl font-semibold text-blue-300">{{ user_data.name }}</h2>
+                    <p class="text-gray-400">@{{ user_data.login }}</p>
+                </div>
+            </div>
+
+            <p class="mt-4 text-sm"><strong>Bio:</strong> {{ user_data.bio }}</p>
+
+            <div class="mt-4 grid grid-cols-3 gap-4 text-center">
+                <div class="bg-gray-800 p-3 rounded-lg shadow-md">
+                    <p class="text-blue-400 text-lg font-bold">{{ user_data.public_repos }}</p>
+                    <p class="text-gray-400 text-sm">Repositories</p>
+                </div>
+                <div class="bg-gray-800 p-3 rounded-lg shadow-md">
+                    <p class="text-green-400 text-lg font-bold">{{ user_data.followers | length }}</p>
+                    <p class="text-gray-400 text-sm">Followers</p>
+                </div>
+                <div class="bg-gray-800 p-3 rounded-lg shadow-md">
+                    <p class="text-orange-400 text-lg font-bold">{{ user_data.following | length }}</p>
+                    <p class="text-gray-400 text-sm">Following</p>
+                </div>
+            </div>
+
+            <!-- Repositories -->
+            <h3 class="mt-6 text-lg font-semibold text-blue-300">Top Repositories</h3>
+            <ul class="mt-2 space-y-2">
+                {% for repo in user_data.repos %}
+                <li>
+                    <a href="{{ repo.html_url }}" target="_blank"
+                        class="block bg-gray-800 p-2 rounded-md text-blue-400 hover:text-white hover:bg-blue-500 transition">
+                        {{ repo.name }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- Graph -->
+        {% if graph_url %}
+        <div class="mt-6 text-center">
+            <h3 class="text-lg font-semibold text-blue-300">GitHub Progress</h3>
+            <img src="{{ graph_url }}" alt="GitHub Progress Graph"
+                class="mt-2 rounded-lg shadow-lg transform transition-transform hover:scale-105">
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Tailwind Animations -->
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.6s ease-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 1.5s infinite;
+        }
+    </style>
+
+</body>
+
+</html>
