@@ -1,6 +1,5 @@
 # GitHub User Search
 
-<img align="right" alt="Coding" width="100%" src="https://www.digitaladlectio.com/wp-content/uploads/2020/04/New-PNC-Animated-Banners.gif">
 
 ## 📌 Project Overview
 GitHub User Search is a web application that allows users to search for GitHub profiles by username. It fetches user data from the GitHub API and displays profile details such as followers, following, repository count, and a list of public repositories.
@@ -16,21 +15,6 @@ GitHub User Search is a web application that allows users to search for GitHub p
 - **Backend:** Django
 - **Database:** SQLite
 - **API Integration:** GitHub REST API
-
-## 📷 Screenshots
-Coming soon...
-
-## 📂 Project Structure
-```
-.github_user_search/
-│── github_user_search/       # Main Django project directory
-│── templates/                # HTML templates
-│── static/                   # CSS and JavaScript files
-│── views.py                  # Django views handling API requests
-│── urls.py                   # URL routing
-│── settings.py               # Project settings
-│── manage.py                 # Django management script
-```
 
 ## 🔗 API Used
 This project fetches data from the GitHub API:
