@@ -11,7 +11,7 @@ GitHub User Search is a web application that allows users to search for GitHub p
 - Responsive design for a seamless experience across devices
 
 ## 🚀 Technologies Used
-- **Frontend:** HTML, CSS, JavaScript
+- **Frontend:** HTML, TailwindCSS 
 - **Backend:** Django
 - **Database:** SQLite
 - **API Integration:** GitHub REST API
